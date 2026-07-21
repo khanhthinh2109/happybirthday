@@ -540,6 +540,12 @@
             pointer-events: none;
         }
 
+        .heart-subtext {
+            margin-top: 0.5rem;
+            font-size: 1.35rem;
+            white-space: nowrap;
+        }
+
         body.heart-active {
             background: #000 !important;
             background-image: none !important;
@@ -559,6 +565,11 @@
             .heart-text {
                 width: 90%;
                 font-size: 2rem;
+            }
+
+            .heart-subtext {
+                font-size: 1rem;
+                white-space: normal;
             }
         }
     </style>
@@ -629,7 +640,10 @@
     <canvas id="canvas"></canvas>
     <canvas id="heartCanvas"></canvas>
     <audio id="birthdayMusic" src="assets/happy-birthday-piano.mp3" preload="auto" loop></audio>
-    <div class="heart-text">I LOVE YOU!</div>
+    <div class="heart-text">
+        I LOVE YOU!
+        <div class="heart-subtext">wishes all the best for my bae &lt;3</div>
+    </div>
     <div id="merrywrap" class="merrywrap">
         <div class="giftbox">
             <div class="cover">
