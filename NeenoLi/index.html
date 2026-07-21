@@ -544,6 +544,23 @@
             background: #000 !important;
             background-image: none !important;
         }
+        @media (max-width: 600px) and (orientation: portrait) {
+            .giftbox {
+                width: 220px;
+                height: 150px;
+                margin-left: -110px;
+                top: 38%;
+            }
+
+            .giftbox:after {
+                font-size: 34px;
+            }
+
+            .heart-text {
+                width: 90%;
+                font-size: 2rem;
+            }
+        }
     </style>
 
     <style>
@@ -636,9 +653,9 @@
 
             opts = {
                 strings: ['HAPPY', 'BIRTHDAY!', 'Linh Sandy'],
-                charSize: 70,
-                charSpacing: 70,
-                lineHeight: 70,
+                charSize: Math.min(70, window.innerWidth / 10),
+                charSpacing: Math.min(70, window.innerWidth / 10),
+                lineHeight: Math.min(85, window.innerWidth / 8),
 
                 cx: w / 2,
                 cy: h / 2,
@@ -1016,7 +1033,7 @@
         for (var i = 0; i < opts.strings.length; ++i) {
             for (var j = 0; j < opts.strings[i].length; ++j) {
                 letters.push(new Letter(opts.strings[i][j],
-                    j * opts.charSpacing + opts.charSpacing / 2 - opts.strings[i].length * opts.charSize / 2,
+                    j * opts.charSpacing + opts.charSpacing / 2 - opts.strings[i].length * opts.charSpacing / 2,
                     i * opts.lineHeight + opts.lineHeight / 2 - opts.strings.length * opts.lineHeight / 2));
             }
         }
