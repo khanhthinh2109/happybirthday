@@ -628,6 +628,7 @@
 
     <canvas id="canvas"></canvas>
     <canvas id="heartCanvas"></canvas>
+    <audio id="birthdayMusic" src="assets/happy-birthday-piano.mp3" preload="auto" loop></audio>
     <div class="heart-text">I LOVE YOU!</div>
     <div id="merrywrap" class="merrywrap">
         <div class="giftbox">
@@ -1546,6 +1547,12 @@
             function openBox() {
                 if (step === 1) {
                     box.removeEventListener("click", openBox, false);
+                    var birthdayMusic = document.getElementById("birthdayMusic");
+                    if (birthdayMusic) {
+                        birthdayMusic.play().catch(function (error) {
+                            console.warn("Không thể tự động phát nhạc:", error);
+                        });
+                    }
                 }
                 stepClass(step);
                 if (step === 3) {
@@ -1566,21 +1573,6 @@
             document.querySelector('.merrywrap').style.backgroundColor = 'transparent';
 
             loop();
-
-            var w, h;
-            if (window.innerWidth >= 1000) {
-                w = 295; h = 185;
-            }
-            else {
-                w = 255; h = 155;
-            }
-
-            var ifrm = document.createElement("iframe");
-            ifrm.setAttribute("src", "https://www.youtube.com/embed/KDxJlW6cxRk?controls=0&loop=1&autoplay=1");
-            //ifrm.style.width = `${w}px`;
-            //ifrm.style.height = `${h}px`;
-            ifrm.style.border = 'none';
-            document.querySelector('#video').appendChild(ifrm);
         }
     </script>
 
