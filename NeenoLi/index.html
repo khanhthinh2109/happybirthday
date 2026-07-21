@@ -541,9 +541,22 @@
         }
 
         .heart-subtext {
-            margin-top: 0.5rem;
+            position: absolute;
+            z-index: 1003;
+            top: calc(50% + 3.5rem);
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            color: #ff8fc3;
+            font-family: "Kaushan Script", "Sail", cursive;
             font-size: 1.35rem;
-            white-space: nowrap;
+            font-style: italic;
+            line-height: 1.4;
+            text-align: center;
+            display: none;
+            visibility: visible;
+            opacity: 1;
+            pointer-events: none;
         }
 
         body.heart-active {
@@ -568,8 +581,8 @@
             }
 
             .heart-subtext {
-                font-size: 1rem;
-                white-space: normal;
+                top: calc(50% + 2.75rem);
+                font-size: 1.1rem;
             }
         }
     </style>
@@ -640,10 +653,8 @@
     <canvas id="canvas"></canvas>
     <canvas id="heartCanvas"></canvas>
     <audio id="birthdayMusic" src="assets/happy-birthday-piano.mp3" preload="auto" loop></audio>
-    <div class="heart-text">
-        I LOVE YOU!
-        <div class="heart-subtext">wishes all the best for my bae &lt;3</div>
-    </div>
+    <div class="heart-text">I LOVE YOU!</div>
+    <div class="heart-subtext">wishes all the best for my bae &lt;3</div>
     <div id="merrywrap" class="merrywrap">
         <div class="giftbox">
             <div class="cover">
@@ -1259,6 +1270,8 @@
                 document.body.classList.remove('heart-active');
                 var heartText = document.querySelector('.heart-text');
                 if (heartText) heartText.style.display = 'none';
+                var heartSubtext = document.querySelector('.heart-subtext');
+                if (heartSubtext) heartSubtext.style.display = 'none';
                 var merrywrap = document.getElementById('merrywrap');
                 if (merrywrap) merrywrap.style.display = '';
                 var balloonContainer = document.getElementById('balloon-container');
@@ -1279,6 +1292,7 @@
                 heartCanvas.style.display = 'block';
                 document.body.classList.add('heart-active');
                 document.querySelector('.heart-text').style.display = 'block';
+                document.querySelector('.heart-subtext').style.display = 'block';
                 var merrywrap = document.getElementById('merrywrap');
                 if (merrywrap) merrywrap.style.display = 'none';
                 var balloonContainer = document.getElementById('balloon-container');
