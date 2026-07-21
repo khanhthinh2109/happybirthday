@@ -538,6 +538,8 @@
             text-align: center;
             display: none;
             pointer-events: none;
+            transform-origin: center;
+            animation: heartTextBeat 0.9s ease-in-out infinite;
         }
 
         .heart-subtext {
@@ -557,6 +559,31 @@
             visibility: visible;
             opacity: 1;
             pointer-events: none;
+            transform-origin: center;
+            animation: heartSubtextBeat 0.9s ease-in-out infinite;
+        }
+        @keyframes heartTextBeat {
+            0%, 36%, 100% {
+                transform: translate(-50%, -50%) scale(1);
+            }
+            8% {
+                transform: translate(-50%, -50%) scale(1.12);
+            }
+            24% {
+                transform: translate(-50%, -50%) scale(1.08);
+            }
+        }
+
+        @keyframes heartSubtextBeat {
+            0%, 36%, 100% {
+                transform: translateX(-50%) scale(1);
+            }
+            8% {
+                transform: translateX(-50%) scale(1.12);
+            }
+            24% {
+                transform: translateX(-50%) scale(1.08);
+            }
         }
 
         body.heart-active {
@@ -1087,6 +1114,7 @@
             var heartCanvas = document.getElementById('heartCanvas');
             var heartCtx = heartCanvas.getContext('2d');
             var heartTime = null;
+            var heartBeatStart = null;
             var heartRunning = false;
 
             var heartSettings = {
@@ -1261,7 +1289,19 @@
                     heartParticles.add(heartCanvas.width / 2 + pos.x, heartCanvas.height / 2 - pos.y, dir.x, -dir.y);
                 }
                 heartParticles.update(deltaTime);
+
+                // Two quick pulses create a natural "lub-dub" heartbeat.
+                var beatPhase = ((newTime - heartBeatStart) % 0.9) / 0.9;
+                var firstBeat = Math.exp(-Math.pow((beatPhase - 0.08) / 0.045, 2));
+                var secondBeat = Math.exp(-Math.pow((beatPhase - 0.24) / 0.055, 2));
+                var heartScale = 1 + 0.12 * firstBeat + 0.08 * secondBeat;
+
+                heartCtx.save();
+                heartCtx.translate(heartCanvas.width / 2, heartCanvas.height / 2);
+                heartCtx.scale(heartScale, heartScale);
+                heartCtx.translate(-heartCanvas.width / 2, -heartCanvas.height / 2);
                 heartParticles.draw(heartCtx, heartImage);
+                heartCtx.restore();
             }
 
             window.stopHeartEffect = function() {
@@ -1301,6 +1341,7 @@
                 if (canvasC) canvasC.style.display = 'none';
                 heartParticles = new HeartParticlePool(heartSettings.particles.length);
                 heartTime = null;
+                heartBeatStart = Date.now() / 1000;
                 renderHeart();
                 setTimeout(function() {
                     window.stopHeartEffect();
